@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import {AuthProvider} from '@/providers/AuthProvider';
+import {AuthProvider} from '../providers/AuthProvider';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -34,6 +34,7 @@ export default function RootLayout() {
         <Stack.Screen name="user" options={{ headerShown: false }} />
         <Stack.Screen name="search" options={{ headerShown: false }} />
         <Stack.Screen name="camera" options={{ headerShown: false, presentation:'modal' }} />
+        <Stack.Screen name="video-player" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       </AuthProvider>

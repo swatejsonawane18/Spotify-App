@@ -1,6 +1,6 @@
 import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TabLayout() {
@@ -8,20 +8,36 @@ export default function TabLayout() {
 
   const tabOptions = {
     headerShown: false,
-    tabBarActiveTintColor: '#000',
-    tabBarInactiveTintColor: '#666',
+    tabBarActiveTintColor: '#3B82F6',
+    tabBarInactiveTintColor: '#9CA3AF',
     tabBarStyle: {
-      backgroundColor: '#fff',
-      borderTopWidth: 0,
+      backgroundColor: '#FFFFFF',
+      borderTopWidth: 1,
+      borderTopColor: '#F3F4F6',
+      height: Platform.OS === 'ios' ? 85 : 75,
+      paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+      paddingTop: 8,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: -2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 8,
+    },
+    tabBarLabelStyle: {
+      fontSize: 12,
+      fontWeight: '500' as const,
     },
   };
 
-  const tabIcon = (name: string, focusedName?: string) => 
+  const tabIcon = (name: keyof typeof Ionicons.glyphMap, focusedName?: keyof typeof Ionicons.glyphMap) =>
     ({ focused }: { focused: boolean }) => (
-      <Ionicons 
-        name={focused ? (focusedName || name) : `${name}-outline`}
-        size={24}
-        color={focused ? '#000' : '#666'}
+      <Ionicons
+        name={focused ? (focusedName || name) : `${name}-outline` as keyof typeof Ionicons.glyphMap}
+        size={26}
+        color={focused ? '#3B82F6' : '#9CA3AF'}
       />
     );
 
@@ -31,7 +47,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: tabIcon('home', 'home-sharp'),
+          tabBarIcon: tabIcon('home', 'home'),
         }}
       />
 
@@ -39,7 +55,7 @@ export default function TabLayout() {
         name="friends"
         options={{
           title: 'Friends',
-          tabBarIcon: tabIcon('people', 'people-sharp'),
+          tabBarIcon: tabIcon('people', 'people'),
         }}
       />
 
@@ -48,11 +64,11 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: () => (
-            <Ionicons 
-              name="add-circle" 
-              size={48} 
-              color="black" 
-              style={styles.circleButton}
+            <Ionicons
+              name="add-circle"
+              size={36}
+              color="#3B82F6"
+              style={styles.addButton}
             />
           ),
           tabBarLabel: () => null,
@@ -85,17 +101,8 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
-  circleButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+  addButton: {
+    marginTop: Platform.OS === 'ios' ? -2 : 0,
   },
 });
+
